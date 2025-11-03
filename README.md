@@ -22,7 +22,8 @@ well-defined specification to compare languages side-by-side.
 - [X] Understand language differences and trade-offs
 - [X] Explore different paradigms (imperative, OOP, functional, systems)
 - [X] Build a "Rosetta Stone" of programming knowledge
-- [X] Cover 8 distinct programming languages
+- [X] Cover 9 distinct programming languages
+- [X] Native iOS/macOS implementation (Swift)
 - [X] Compare memory management approaches
 - [ ] Reach 10+ language implementations
 - [ ] Add web-based implementation (JavaScript/WASM)
@@ -72,6 +73,7 @@ snake/
 +-- snake_elixir.exs       # Elixir terminal version
 +-- snake_cpp.cpp          # C++ with SDL2
 +-- snake_csharp.cs        # C# with Windows Forms
++-- snake_swift.swift      # Swift with SpriteKit (macOS/iOS)
 +-- snake_asm.asm          # x86-64 Assembly (experimental)
 |
 +-- Cargo.toml             # Rust configuration
@@ -213,7 +215,33 @@ RUN:
     csc /target:winexe snake_csharp.cs
 
 
-### [8] x86-64 Assembly - Low-Level Experimental 🔬
+### [8] Swift - Apple Native ✅
+
+FILE: snake_swift.swift
+
+Native Apple implementation with SpriteKit game framework.
+
+CHARACTERISTICS:
+- Modern Swift syntax
+- SpriteKit 2D game framework
+- SwiftUI app wrapper
+- Native iOS and macOS support
+- Memory-safe with ARC
+- Touch and keyboard input
+- Cross-platform (iPhone, iPad, Mac, Apple TV)
+
+RUN:
+    # In Xcode:
+    # 1. Create new iOS/macOS App
+    # 2. Replace ContentView.swift with snake_swift.swift
+    # 3. Press Cmd+R
+
+    # Or with Swift compiler (macOS only):
+    swiftc snake_swift.swift -o snake_swift
+    ./snake_swift
+
+
+### [9] x86-64 Assembly - Low-Level Experimental 🔬
 
 FILE: snake_asm.asm
 
@@ -269,18 +297,18 @@ All implementations follow this 6-phase structure:
 
 ## LANGUAGE COMPARISON
 
-    Aspect          QB64       Python     Rust       Pascal     Elixir     C++        C#         ASM
-    --------------------------------------------------------------------------------------------------------
-    Paradigm        Imperative OOP        Systems    Structured Functional Systems    OOP        Bare-Metal
-    Input           INKEY$     Events     Events     ReadKey    Raw IO     Events     Events     Syscalls
-    Data            Arrays     Lists      Vec        Arrays     Maps       Vector     List       Registers
-    Functions       GOSUB      Methods    Fns+Traits Procedures Functions  Methods    Methods    Labels
-    Graphics        LINE       Pygame     Macroquad  BGI        ANSI       SDL2       WinForms   Syscalls
-    Memory          Auto       GC         Ownership  Manual     GC         Manual     GC         Manual
-    Type Safety     Weak       Dynamic    Strong     Strong     Strong     Strong     Strong     None
-    Complexity      Simple     Moderate   High       Moderate   Moderate   High       Moderate   Very High
-    Era             1980s      Modern     Modern     1980s      Modern     1980s+     Modern     1970s
-    Platform        Windows    Cross      Cross      DOS/Win    Cross      Cross      Windows    Linux
+    Aspect          QB64       Python     Rust       Pascal     Elixir     C++        C#         Swift      ASM
+    -------------------------------------------------------------------------------------------------------------------
+    Paradigm        Imperative OOP        Systems    Structured Functional Systems    OOP        OOP+Proto  Bare-Metal
+    Input           INKEY$     Events     Events     ReadKey    Raw IO     Events     Events     Touch/Keys Syscalls
+    Data            Arrays     Lists      Vec        Arrays     Maps       Vector     List       Array      Registers
+    Functions       GOSUB      Methods    Fns+Traits Procedures Functions  Methods    Methods    Closures   Labels
+    Graphics        LINE       Pygame     Macroquad  BGI        ANSI       SDL2       WinForms   SpriteKit  Syscalls
+    Memory          Auto       GC         Ownership  Manual     GC         Manual     GC         ARC        Manual
+    Type Safety     Weak       Dynamic    Strong     Strong     Strong     Strong     Strong     Strong     None
+    Complexity      Simple     Moderate   High       Moderate   Moderate   High       Moderate   Moderate   Very High
+    Era             1980s      Modern     Modern     1980s      Modern     1980s+     Modern     2014+      1970s
+    Platform        Windows    Cross      Cross      DOS/Win    Cross      Cross      Windows    Apple      Linux
 
 ---
 
@@ -336,6 +364,14 @@ All implementations follow this 6-phase structure:
 - [X] .NET ecosystem
 - [X] Garbage collection
 
+#### Swift ✅
+- [X] Modern Apple-native development
+- [X] SpriteKit 2D game framework
+- [X] SwiftUI declarative UI
+- [X] Automatic Reference Counting (ARC)
+- [X] Protocol-oriented programming
+- [X] Cross-device (iOS, macOS, tvOS)
+
 #### x86-64 Assembly 🔬
 - [X] Direct syscalls
 - [X] Register operations
@@ -362,22 +398,24 @@ All implementations follow this 6-phase structure:
 - **Elixir**: 1.12+
 - **C++**: GCC/Clang with C++11, SDL2 library
 - **C#**: .NET 6.0+ or .NET Framework 4.7+
+- **Swift**: Swift 5.5+, Xcode 13+ (macOS 11+, iOS 14+)
 - **Assembly**: NASM 2.14+ (Linux x86-64 only)
 
 ### Platform Support
 ```
-Language    Windows    Linux    macOS    Web
--------------------------------------------------
-QB64        ✅         ✅       ✅       ❌
-Python      ✅         ✅       ✅       ❌
-Rust        ✅         ✅       ✅       ✅ (WASM)
-Pascal      ✅         ✅       ❌       ❌
-Elixir      ✅         ✅       ✅       ❌
-C++         ✅         ✅       ✅       ❌
-C#          ✅         ⚠️       ⚠️       ❌
-Assembly    ❌         ✅       ❌       ❌
+Language    Windows    Linux    macOS    iOS/iPadOS    Web
+----------------------------------------------------------------
+QB64        ✅         ✅       ✅       ❌            ❌
+Python      ✅         ✅       ✅       ❌            ❌
+Rust        ✅         ✅       ✅       ⚠️            ✅ (WASM)
+Pascal      ✅         ✅       ❌       ❌            ❌
+Elixir      ✅         ✅       ✅       ❌            ❌
+C++         ✅         ✅       ✅       ❌            ❌
+C#          ✅         ⚠️       ⚠️       ❌            ❌
+Swift       ❌         ❌       ✅       ✅            ❌
+Assembly    ❌         ✅       ❌       ❌            ❌
 
-✅ Full Support  |  ⚠️ Partial (Mono/Wine)  |  ❌ Not Available
+✅ Full Support  |  ⚠️ Partial (Mono/Wine/Experimental)  |  ❌ Not Available
 ```
 
 ---
@@ -457,6 +495,24 @@ dotnet run
 csc /target:winexe snake_csharp.cs
 ```
 
+### Swift Setup (macOS/iOS)
+```bash
+# Install Xcode from App Store (macOS only)
+
+# Method 1: Xcode Project (Recommended)
+# 1. Open Xcode
+# 2. File → New → Project → iOS App or macOS App
+# 3. Interface: SwiftUI
+# 4. Replace ContentView.swift with snake_swift.swift
+# 5. Press Cmd+R to run
+
+# Method 2: Command Line (macOS only, no graphics)
+swiftc snake_swift.swift -o snake_swift
+./snake_swift
+
+# For iOS: Must use Xcode with Simulator or Device
+```
+
 ### Assembly Setup (Linux only)
 ```bash
 # Install NASM
@@ -481,6 +537,7 @@ All implementations are fully documented with inline comments:
 - **snake_elixir.exs** - Functional programming with pattern matching
 - **snake_cpp.cpp** - C++ with SDL2 API documentation
 - **snake_csharp.cs** - C# Windows Forms architecture
+- **snake_swift.swift** - Swift with SpriteKit game framework
 - **snake_asm.asm** - Low-level assembly with syscall comments
 
 Each file follows the 6-phase blueprint structure for easy comparison.
@@ -569,6 +626,7 @@ Pascal          264              Medium        3-4 hours
 Elixir          218              Medium        3-4 hours
 C++             417              High          5-6 hours
 C#              473              Medium        4-5 hours
+Swift           548              Medium        4-5 hours
 Assembly        163 (partial)    Very High     10+ hours (WIP)
 ```
 
@@ -577,6 +635,6 @@ Assembly        163 (partial)    Very High     10+ hours (WIP)
 Created as a programming learning journey - **returning to code after 20+ years**.  
 Classic Snake serves as a stable, well-defined blueprint for multi-language exploration.
 
-**8 languages implemented. Many more to come!**
+**9 languages implemented. Many more to come!**
 
 Last updated: **November 3, 2025**
